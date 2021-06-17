@@ -4,5 +4,6 @@
     <h1>Bite</h1>
     {% for game in games %}
         <h2>{{ game.name }}</h2>
+        <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
     {% endfor %}
 {% endblock %}

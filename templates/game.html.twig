@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+    <h1>{{ game.name }}</h1>
+    <p>Le créateur est {{ game.creator }} .</p>
+    <ul>
+        {% for comment in comments %}
+        <li>{{ comment.creator }} : {{ comment.content }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

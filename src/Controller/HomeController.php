@@ -3,6 +3,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +24,20 @@ class HomeController extends AbstractController
     {
         $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
         return $this->render("index.html.twig", [
-            "games"=>$games
+            "games" => $games
+        ]);
+    }
+
+    /**
+     * @Route("/game-{id}", name="OneGame")
+     * @return Response
+     */
+    public function select(Game $game): Response
+    {
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(array("game"=>$game->getId()));
+        return $this->render("game.html.twig", [
+            "game" => $game,
+            "comments" => $comments
         ]);
     }
 
