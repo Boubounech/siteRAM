@@ -1,5 +1,8 @@
 {% extends "base.html.twig" %}
 
 {%  block body %}
-    <h1>Hello {{ FirstName }}</h1>
+    <h1>Bite</h1>
+    {% for game in games %}
+        <h2>{{ game.name }}</h2>
+    {% endfor %}
 {% endblock %}

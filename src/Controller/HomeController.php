@@ -18,10 +18,30 @@ class HomeController extends AbstractController
      * @Route("/", name="HomeRAM")
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
+        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
         return $this->render("index.html.twig", [
-            "FirstName" => "Boun"
+            "games"=>$games
         ]);
     }
+
+    # ça sert à rien en tant que tel, c'est juste pour ne pas le supprimer
+
+    #public function index(Request $request): Response
+    #{
+    #    return $this->render("index.html.twig", [
+    #        "FirstName" => "Boun"
+    #    ]);
+    #}
+    #/**
+    # * @Route("/hello/{FirstName}", name="hello", defaults={"FirstName":"You"})
+    # * @return Response
+    # */
+    #public function hello($FirstName): Response
+    #{
+    #    return $this->render("index.html.twig", [
+    #        "FirstName" => $FirstName
+    #    ]);
+    #}
 }
