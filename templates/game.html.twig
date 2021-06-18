@@ -6,6 +6,12 @@
     <p>Catégorie : {{ game.category }}</p>
     <p>Genre : {{ game.genre }}</p>
     <a href="{{ game.link }}" target="_blank">Télécharger le jeu</a>
+    <p>Ajouter un commentaire : </p>
+    {{ form_start(form) }}
+        {{ form_row(form.creator) }}
+        {{ form_row(form.content) }}
+        <button type="submit">Publier le commentaire</button>
+    {{ form_end(form) }}
     <p>Commentaires :</p>
     <ul>
         {% for comment in comments %}

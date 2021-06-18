@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,7 @@ class Comment
      * @var int
      *
      * @ORM\Column(name="creator", type="integer", nullable=false)
+     * @Assert\NotBlank()
      */
     private $creator;
 
@@ -32,6 +34,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -59,9 +62,9 @@ class Comment
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCreator(): int
+    public function getCreator(): ?int
     {
         return $this->creator;
     }
@@ -75,9 +78,9 @@ class Comment
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }

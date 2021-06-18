@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Game;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,12 +33,21 @@ class HomeController extends AbstractController
      * @Route("/game-{id}", name="OneGame")
      * @return Response
      */
-    public function select(Game $game): Response
+    public function select(Game $game, Request $request): Response
     {
+        $comment = new Comment();
+        $comment->setGame($game->getId());
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getDoctrine()->getManager()->persist($comment);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute("OneGame", ["id" => $game->getId()]);
+        }
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(array("game"=>$game->getId()));
         return $this->render("game.html.twig", [
             "game" => $game,
-            "comments" => $comments
+            "comments" => $comments,
+            "form" => $form->createView()
         ]);
     }
 
