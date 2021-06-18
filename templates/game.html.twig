@@ -3,9 +3,14 @@
 {%  block body %}
     <h1>{{ game.name }}</h1>
     <p>Le créateur est {{ game.creator }} .</p>
+    <p>Catégorie : {{ game.category }}</p>
+    <p>Genre : {{ game.genre }}</p>
+    <a href="{{ game.link }}" target="_blank">Télécharger le jeu</a>
+    <p>Commentaires :</p>
     <ul>
         {% for comment in comments %}
         <li>{{ comment.creator }} : {{ comment.content }}</li>
         {% endfor %}
     </ul>
+    <a href="{{ path("HomeRAM") }}">Revenir à l'accueil</a>
 {% endblock %}

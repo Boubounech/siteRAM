@@ -23,7 +23,6 @@ class GameFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++)
         {
             $game = new Game();
-            $game->setId($i);
             $game->setName("Jeu n°" . $i);
             $game->setGenre("genre n°" . $i);
             $game->setCategory("category n°" . $i);
@@ -34,9 +33,7 @@ class GameFixtures extends Fixture
 
             for ($y = 1; $y <= 2; $y++)
             {
-                $d = $i * 2 + $y;
                 $comment = new Comment();
-                $comment->setId($d);
                 $comment->setCreator($i);
                 $comment->setContent("Contenu n°".$y);
                 $comment->setGame($i);
