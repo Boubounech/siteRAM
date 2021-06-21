@@ -65,35 +65,21 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/search-{nam}-{cate}-{gen}", name="SearchGames")
+     * @Route("/search", name="SearchGames", methods="GET")
      * @return Response
      */
-    public function researchGames(Request $request, string $nam, string $cate, string $gen) : Response
+    public function researchGames(Request $request) : Response
     {
-        $form = $this->createForm(CommentType::class)->handleRequest($request);
-        $games = $this->getDoctrine()->getRepository(Game::class)->findByNameAndCategoryAndGenre('Jeu', 'oui', 'non');
+        $nam = $request->query->get('nam');
+        $cate = $request->query->get('cate');
+        $gen = $request->query->get('gen');
+        $games = $this->getDoctrine()->getRepository(Game::class)->findByNameAndCategoryAndGenre($nam, $cate, $gen);
+        //$games = $this->getDoctrine()->getRepository(Game::class)->findAll();
         return $this->render("search.html.twig", [
             "games" => $games,
-            "form" => $form->createView()
+            "name" => $nam,
+            "category" => $cate,
+            "genre" => $gen
         ]);
     }
-
-    # ça sert à rien en tant que tel, c'est juste pour ne pas le supprimer
-
-    #public function index(Request $request): Response
-    #{
-    #    return $this->render("index.html.twig", [
-    #        "FirstName" => "Boun"
-    #    ]);
-    #}
-    #/**
-    # * @Route("/hello/{FirstName}", name="hello", defaults={"FirstName":"You"})
-    # * @return Response
-    # */
-    #public function hello($FirstName): Response
-    #{
-    #    return $this->render("index.html.twig", [
-    #        "FirstName" => $FirstName
-    #    ]);
-    #}
 }

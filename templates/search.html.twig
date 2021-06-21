@@ -3,12 +3,26 @@
 {%  block body %}
     <h1>Bibliothèque</h1>
     <p>Rechercher</p>
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.category) }}
-        {{ form_row(form.genre) }}
-    <button type="submit">Rechercher</button>
-    {{ form_end(form) }}
+    <form class="ui form" action="{{ path("SearchGames") }}" method="get">
+        <div class="field">
+            <label for="nam">Nom : </label>
+            <input type="text" name="nam" id="nam">
+        </div>
+        <div class="field">
+            <label for="cate">Catégorie : </label>
+            <input type="text" name="cate" id="cate">
+        </div>
+        <div class="field">
+            <label for="gen">Genre : </label>
+            <input type="text" name="gen" id="gen">
+        </div>
+        <button class="ui button" type="submit">Rechercher</button>
+    </form>
+    <p>Vous avez cherché : </p>
+    <p>Nom = {{ name }}</p>
+    <p>Catégorie = {{ category }}</p>
+    <p>Genre = {{ genre }}</p>
+    <p>Voilà les résulats de la recherche : </p>
     {% for game in games %}
         <h2>{{ game.name }}</h2>
         <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
