@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+    <h1>Bibliothèque</h1>
+    <p>Rechercher</p>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.genre) }}
+    <button type="submit">Rechercher</button>
+    {{ form_end(form) }}
+    {% for game in games %}
+        <h2>{{ game.name }}</h2>
+        <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
+    {% endfor %}
+{% endblock %}

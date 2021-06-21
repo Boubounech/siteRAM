@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+    <h1>Bibliothèque</h1>
+    <p>Ci dessous, la liste de tous les jeux</p>
+    {% for game in games %}
+        <h2>{{ game.name }}</h2>
+        <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
+    {% endfor %}
+{% endblock %}

@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Game;
 use App\Form\CommentType;
+use App\Form\ResearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,32 @@ class HomeController extends AbstractController
         return $this->render("game.html.twig", [
             "game" => $game,
             "comments" => $comments,
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/page", name="AllGames")
+     * @return Response
+     */
+    public function allGamesPaginated(): Response
+    {
+        $games = $this->getDoctrine()->getRepository(Game::class)->findAll();
+        return $this->render("allGames.html.twig", [
+            "games" => $games
+        ]);
+    }
+
+    /**
+     * @Route("/search-{nam}-{cate}-{gen}", name="SearchGames")
+     * @return Response
+     */
+    public function researchGames(Request $request, string $nam, string $cate, string $gen) : Response
+    {
+        $form = $this->createForm(CommentType::class)->handleRequest($request);
+        $games = $this->getDoctrine()->getRepository(Game::class)->findByNameAndCategoryAndGenre('Jeu', 'oui', 'non');
+        return $this->render("search.html.twig", [
+            "games" => $games,
             "form" => $form->createView()
         ]);
     }
