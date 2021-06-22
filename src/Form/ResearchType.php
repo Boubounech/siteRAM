@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form;
+use App\Entity\Game;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,6 +48,6 @@ class ResearchType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault("dataClass", Comment::class);
+        $resolver->setDefault("dataClass", Game::class);
     }
 }

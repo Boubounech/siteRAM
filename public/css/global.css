@@ -1,0 +1,17 @@
+* {
+    font-family: "lucida sans", sans-serif;
+}
+
+.LinkPage {
+    display: flex;
+    border-bottom: solid #ddd 1px;
+    height: 4em;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: lightcoral;
+}
+
+body {
+    background-color: #999999;
+}
