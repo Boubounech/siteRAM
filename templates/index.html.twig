@@ -4,7 +4,7 @@
     <h1>Accueil</h1>
     <p>Voilà les 5 jeux les plus récents : </p>
     {% for game in games|slice(games|length-5, games|length) %}
-        <h2>{{ game.name }}</h2>
+        <h3>{{ game.name }}</h3>
         <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus sur ce jeu.</a>
     {% endfor %}
 {% endblock %}

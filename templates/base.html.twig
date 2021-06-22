@@ -14,15 +14,19 @@
         {% endblock %}
     </head>
     <body>
-        <a href="{{ path("AllGames") }}">Voir tous les jeux.</a>
-        <a href="{{ path("SearchGames") }}">Rechercher un jeu.</a>
+        <a href="{{ path("AllGames") }}">Voir tous les jeux</a>
+        &emsp;
+        <a href="{{ path("SearchGames") }}">Rechercher un jeu</a>
 
         {% if app.user %}
             <p>Vous êtes connecté en tant que : {{ app.user.pseudo }}.</p>
             <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            &emsp;
             <a href="{{ path('Profil') }}">Mon Profil</a>
         {% else %}
+            <br>
             <a href="{{ path("app_register") }}">Créer un compte</a>
+            &emsp;
             <a href="{{ path("app_login") }}">Se connecter</a>
         {% endif %}
         {% block body %}{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Game;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\GameType;
 use App\Form\ResearchType;
@@ -56,11 +57,13 @@ class GameController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("OneGame", ["id" => $game->getId()]);
         }
+        $user = $this->getDoctrine()->getRepository(User::class)->find($game->getCreator());
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(array("game"=>$game->getId()));
         return $this->render("game.html.twig", [
             "game" => $game,
             "comments" => $comments,
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "user" => $user
         ]);
     }
 
@@ -86,7 +89,6 @@ class GameController extends AbstractController
         $cate = $request->query->get('cate');
         $gen = $request->query->get('gen');
         $games = $this->getDoctrine()->getRepository(Game::class)->findByNameAndCategoryAndGenre($nam, $cate, $gen);
-        //$games = $this->getDoctrine()->getRepository(Game::class)->findAll();
         return $this->render("search.html.twig", [
             "games" => $games,
             "name" => $nam,
@@ -96,7 +98,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/createGame", name="CreateGame", methods="POST")
+     * @Route("/createGame", name="CreateGame")
      * @param Request $request
      * @return Response
      */

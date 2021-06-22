@@ -34,7 +34,7 @@
     <p>Genre = {{ genre }}</p>
     <p>Voilà les résulats de la recherche : </p>
     {% for game in games %}
-        <h2>{{ game.name }}</h2>
+        <h3>{{ game.name }}</h3>
         <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
     {% endfor %}
 {% endblock %}
