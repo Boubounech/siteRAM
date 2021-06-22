@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Mon Profil{% endblock %}
+
 {%  block body %}
     <h1>Mon Profil</h1>
     <p>Mec t'es beau gosse <3</p>
@@ -9,5 +11,18 @@
     <a href="{{ path("CreateGame") }}">Publier un jeu.</a>
     <br>
     <a href="{{ path("ChangeInfos") }}">Changer mes Informations</a>
+
+    <h3>Mes jeux : </h3>
+    {% for game in games %}
+        <h4>{{ game.name }}</h4>
+        <a href="{{ path("OneGame", {id:game.id}) }}">Voir plus.</a>
+    {% endfor %}
+
+    <h3>Mes Commentaires : </h3>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.content }}</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

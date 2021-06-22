@@ -20,30 +20,30 @@ class Comment
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="creator", type="string", nullable=false)
+     * @ORM\Column(name="creator", type="string", nullable=true)
      * @Assert\NotBlank()
      */
-    private string $creator;
+    private ?string $creator;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="content", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
-    private $content;
+    private ?string $content;
 
     /**
      * @var int
      *
      * @ORM\Column(name="game", type="integer", nullable=false)
      */
-    private $game;
+    private int $game;
 
     /**
      * @return int

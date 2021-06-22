@@ -59,11 +59,13 @@ class GameController extends AbstractController
         }
         $user = $this->getDoctrine()->getRepository(User::class)->find($game->getCreator());
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(array("game"=>$game->getId()));
+        $connectedUser = $this->getUser();
         return $this->render("game.html.twig", [
             "game" => $game,
             "comments" => $comments,
             "form" => $form->createView(),
-            "user" => $user
+            "user" => $user,
+            "connectedUser" => $connectedUser
         ]);
     }
 
@@ -119,6 +121,41 @@ class GameController extends AbstractController
         }
 
         return $this->render("createGame.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route ("/redirect-{id}", name="Redirect")
+     * @param Game $game
+     * @return Response
+     */
+    public function redirectToDownload(Game $game) : Response
+    {
+        $game->setDlnumber($game->getDlnumber() + 1);
+        $this->getDoctrine()->getManager()->persist($game);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirect($game->getLink());
+    }
+
+    /**
+     * @Route("/changeGame-{id}", name="ChangeGameInfos")
+     * @param Game $game
+     * @param Request $request
+     * @return Response
+     */
+    public function changeGameName(Game $game, Request $request) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(GameType::class, $game)->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($game);
+            $em->flush();
+            return $this->redirectToRoute("OneGame", ["id" => $game->getId()]);
+        }
+
+        return $this->render("changeGame.html.twig", [
             "form" => $form->createView()
         ]);
     }

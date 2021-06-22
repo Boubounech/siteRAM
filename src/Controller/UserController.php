@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 
+use App\Entity\Comment;
+use App\Entity\Game;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +21,14 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render("profil.html.twig");
+        $games = $this->getDoctrine()->getManager()->getRepository(Game::class)
+            ->findBy(array("creator" => $this->getUser()->getId()));
+        $comments = $this->getDoctrine()->getManager()->getRepository(Comment::class)
+            ->findBy(array("creator" => $this->getUser()->getPseudo()));
+        return $this->render("profil.html.twig", [
+            "games" => $games,
+            "comments" => $comments
+        ]);
     }
 
     /**

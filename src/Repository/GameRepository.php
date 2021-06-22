@@ -22,18 +22,6 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function findByNameAndCategoryAndGenre(?string $name, ?string $cate, ?string $genre): array
-    {
-        return $this->getEntityManager()->createQuery(
-            'SELECT g
-            FROM App\Entity\Game AS g
-            WHERE g.name LIKE :name
-            AND g.category LIKE :category
-            AND g.genre LIKE :genre'
-        )->setParameters(array('name' => '%'.$name.'%', 'category' => '%'.$cate.'%', 'genre' => '%'.$genre.'%'))
-            ->getResult();
-    }
-
     //public function createGame(Game $game)
     //{
     //    return $this->getEntityManager()->createQuery(

@@ -1,11 +1,16 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Jeu : {{ game.name }}{% endblock %}
+
 {%  block body %}
     <h1>{{ game.name }}</h1>
     <p>Le créateur est {{ user.pseudo }} .</p>
     <p>Catégorie : {{ game.category }}</p>
     <p>Genre : {{ game.genre }}</p>
-    <a href="{{ game.link }}" target="_blank">Télécharger le jeu</a>
+    <p><a href="{{ path("Redirect", {id:game.id}) }}" target="_blank">Télécharger le jeu</a> : Déjà {{ game.dlNumber }} téléchargement(s) !</p>
+    {% if user == connectedUser %}
+        <a href="{{ path("ChangeGameInfos", {id:game.id}) }}">Changer les Informations du jeu.</a>
+    {% endif %}
     {% if is_granted("IS_AUTHENTICATED_FULLY") %}
     <p>Ajouter un commentaire : </p>
     {{ form_start(form) }}
