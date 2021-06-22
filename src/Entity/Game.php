@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -18,49 +19,49 @@ class Game
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=25, nullable=false)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @var int
      *
      * @ORM\Column(name="creator", type="integer", nullable=false)
      */
-    private $creator;
+    private ?int $creator;
 
     /**
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=false)
      */
-    private $link;
+    private ?string $link;
 
     /**
      * @var string
      *
      * @ORM\Column(name="category", type="string", length=25, nullable=false)
      */
-    private $category;
+    private ?string $category;
 
     /**
      * @var string
      *
      * @ORM\Column(name="genre", type="string", length=25, nullable=false)
      */
-    private $genre;
+    private ?string $genre;
 
     /**
      * @var int
      *
      * @ORM\Column(name="dlNumber", type="integer", nullable=false)
      */
-    private $dlnumber;
+    private ?int $dlnumber;
 
     /**
      * @return int
@@ -89,7 +90,7 @@ class Game
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -105,7 +106,7 @@ class Game
     /**
      * @param int $creator
      */
-    public function setCreator(int $creator): void
+    public function setCreator(?int $creator): void
     {
         $this->creator = $creator;
     }
@@ -121,7 +122,7 @@ class Game
     /**
      * @param string $link
      */
-    public function setLink(string $link): void
+    public function setLink(?string $link): void
     {
         $this->link = $link;
     }
@@ -137,7 +138,7 @@ class Game
     /**
      * @param string $category
      */
-    public function setCategory(string $category): void
+    public function setCategory(?string $category): void
     {
         $this->category = $category;
     }
@@ -153,7 +154,7 @@ class Game
     /**
      * @param string $genre
      */
-    public function setGenre(string $genre): void
+    public function setGenre(?string $genre): void
     {
         $this->genre = $genre;
     }
@@ -169,7 +170,7 @@ class Game
     /**
      * @param int $dlnumber
      */
-    public function setDlnumber(int $dlnumber): void
+    public function setDlnumber(?int $dlnumber): void
     {
         $this->dlnumber = $dlnumber;
     }

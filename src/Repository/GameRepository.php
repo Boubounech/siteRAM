@@ -32,6 +32,14 @@ class GameRepository extends ServiceEntityRepository
             AND g.genre LIKE :genre'
         )->setParameters(array('name' => '%'.$name.'%', 'category' => '%'.$cate.'%', 'genre' => '%'.$genre.'%'))
             ->getResult();
-
     }
+
+    //public function createGame(Game $game)
+    //{
+    //    return $this->getEntityManager()->createQuery(
+    //        'INSERT INTO App\Entity\Game ("name", "creator", "link", "category", "genre", "dlNumber")
+    //        VALUES (:name, :creator, :link, :category, :genre, 0)'
+    //    )->setParameters(array('name' => $game->getName(), 'creator' => $game->getCreator(), 'link' => $game->getLink(), 'category' => $game->getCategory(), 'genre' => $game->getGenre()))
+    //        ->getResult();
+    //}
 }

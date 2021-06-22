@@ -3,20 +3,30 @@
 {%  block body %}
     <h1>Bibliothèque</h1>
     <p>Rechercher</p>
-    <form class="ui form" action="{{ path("SearchGames") }}" method="get">
-        <div class="field">
-            <label for="nam">Nom : </label>
-            <input type="text" name="nam" id="nam">
-        </div>
-        <div class="field">
-            <label for="cate">Catégorie : </label>
-            <input type="text" name="cate" id="cate">
-        </div>
-        <div class="field">
-            <label for="gen">Genre : </label>
-            <input type="text" name="gen" id="gen">
-        </div>
-        <button class="ui button" type="submit">Rechercher</button>
+    <form action="{{ path("SearchGames") }}" method="get">
+        <label for="nam">Nom : </label>
+        <input type="text" name="nam" id="nam">
+
+        <label for="cate">Catégorie : </label>
+        <select name="cate" id="cate">
+            <option value="">--Choisir une Catégorie--</option>
+            <option value="R-18 Games">R-18 Games</option>
+            <option value="Familial">Familial</option>
+            <option value="Science-Fiction">Science-Fiction</option>
+            <option value="Historique">Historique</option>
+        </select>
+
+        <label for="gen">Genre : </label>
+        <select name="gen" id="gen">
+            <option value="">--Choisir un Genre--</option>
+            <option value="RPG">RPG</option>
+            <option value="FPS">FPS</option>
+            <option value="Tower Defense">Tower Defense</option>
+            <option value="Jeu de Cartes">Jeu de Cartes</option>
+            <option value="Light Novel">Light Novel</option>
+        </select>
+
+        <button type="submit"> Rechercher </button>
     </form>
     <p>Vous avez cherché : </p>
     <p>Nom = {{ name }}</p>

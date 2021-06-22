@@ -6,18 +6,27 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Game;
 use App\Form\CommentType;
+use App\Form\GameType;
 use App\Form\ResearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Security;
 
 /**
- * Class HomeController
+ * Class GameController
  * @package App\Controller
  */
-class HomeController extends AbstractController
+class GameController extends AbstractController
 {
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @Route("/", name="HomeRAM")
      * @return Response
@@ -37,6 +46,9 @@ class HomeController extends AbstractController
     public function select(Game $game, Request $request): Response
     {
         $comment = new Comment();
+        if ($this->security->isGranted("IS_AUTHENTICATED_FULLY")) {
+            $comment->setCreator($this->getUser()->getPseudo());
+        }
         $comment->setGame($game->getId());
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -80,6 +92,32 @@ class HomeController extends AbstractController
             "name" => $nam,
             "category" => $cate,
             "genre" => $gen
+        ]);
+    }
+
+    /**
+     * @Route("/createGame", name="CreateGame", methods="POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function createGame(Request $request) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $game = new Game();
+
+        $game->setCreator($this->getUser()->getId());
+        $game->setDlnumber(0);
+
+        $form = $this->createForm(GameType::class, $game)->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($game);
+            $em->flush();
+            return $this->redirectToRoute("OneGame", ["id" => $game->getId()]);
+        }
+
+        return $this->render("createGame.html.twig", [
+            "form" => $form->createView()
         ]);
     }
 }

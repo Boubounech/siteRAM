@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{%  block body %}
+    <h1>Mon Profil</h1>
+    <p>Mec t'es beau gosse <3</p>
+    <p>Vous êtes connecté en tant que « {{ app.user.pseudo }} .»</p>
+    <p>Votre adresse mél est « {{ app.user.username }} .»</p>
+
+    <a href="{{ path("CreateGame") }}">Publier un jeu.</a>
+
+{% endblock %}

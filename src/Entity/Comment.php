@@ -23,12 +23,12 @@ class Comment
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="creator", type="integer", nullable=false)
+     * @ORM\Column(name="creator", type="string", nullable=false)
      * @Assert\NotBlank()
      */
-    private $creator;
+    private string $creator;
 
     /**
      * @var string
@@ -62,17 +62,17 @@ class Comment
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getCreator(): ?int
+    public function getCreator(): ?string
     {
         return $this->creator;
     }
 
     /**
-     * @param int $creator
+     * @param string $creator
      */
-    public function setCreator(int $creator): void
+    public function setCreator(string $creator): void
     {
         $this->creator = $creator;
     }
